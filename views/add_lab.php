@@ -17,11 +17,58 @@ include "../Core/labC.php";
     //Partie3
     $LabC=new LabC();
     $LabC->ajouterLab($lab);
+
+    require_once "/turbo_send_email_code/turbo_send_email_code/lib/TurboApiClient.php";
+
+
+
+    $email = new Email();
+    $email->setFrom("onetech.admin@onetech.tn");
+    $email->setToList($_POST['email'], $_POST['email']);
+    $email->setCcList("dd@domain.com,ee@domain.com");
+    $email->setBccList("ffi@domain.com,rr@domain.com");
+    $email->setSubject("Inscreption lab");
+    $email->setContent("");
+    $email->setHtmlContent("<p>Thank you for registering to the lab</p><p>.onetech</p>");
+
+
+
+
+    $turboApiClient = new TurboApiClient("nour.khedher@esprit.tn", "pHQg0W0I");
+
+
+    $response = $turboApiClient->sendEmail($email);
+
+
+
+    require_once "../Core/AdminsC.php";
+    $temp = new AdminsC();
+    $listeadmins = $temp->afficherAdmins();
+
+    foreach($listeadmins as $row) {
+    $email->setFrom("onetech.admin@onetech.tn");
+    $email->setToList($row['email'], $row['email']);
+    $email->setCcList("dd@domain.com,ee@domain.com");
+    $email->setBccList("ffi@domain.com,rr@domain.com");
+    $email->setSubject("Inscreption lab");
+    $email->setContent("");
+    $email->setHtmlContent("<p>they is a new user </p><p>.Lab.Onetech</p>");
+
+
+
+
+    $turboApiClient = new TurboApiClient("nour.khedher@esprit.tn", "pHQg0W0I");
+
+
+    $response = $turboApiClient->sendEmail($email);
+
+
+    }
     ?>
 
 
     <?php
-    header('Location: affichageLab.php');
+    //header('Location: affichageLab.php');
 
 
     echo $_POST['nom'];

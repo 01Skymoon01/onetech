@@ -84,6 +84,7 @@ class LabC {
 
 		$sql="SELECT * from lab where adresseIP='$adresseIP'";
 		$db = config::getConnexion();
+		
 		try{
 		$liste=$db->query($sql);
 		return $liste;

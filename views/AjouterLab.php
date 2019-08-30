@@ -1,6 +1,8 @@
 
 <?php
 if(isset($_POST['adresseIP'])){
+  require_once "../Views/PHPMailer-5.2-stable/PHPMailerAutoload.php";
+require_once "../Core/AdminsC.php";
 include "../Entities/Lab.php";
 include "../Core/labC.php";
 
@@ -25,10 +27,103 @@ if($pos==0){
     var_dump($produit1);
     }
     */
+    /*
+
+        $temp = new AdminsC();
+        $listeadmins = $temp->afficherAdmins();
+
+        //var_dump($rupture);
+
+                $mail = new PHPMailer;
+                //$mail->SMTPDebug = 2;// TCP port to connect to
+                //echo $row['email'];
+                $mail->isSMTP();                            // Set mailer to use SMTP
+                $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP servers
+                $mail->SMTPAuth = true;                     // Enable SMTP authentication
+                //$mail->Username = 'elreb7chich';          // SMTP username
+                //$mail->Password = 'plataoplomo1994';
+                $mail->Username = 'skymoon2598@gmail.com';          // SMTP username
+                $mail->Password = '1Nounour';// SMTP password
+                $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
+                $mail->Port = 465;
+
+
+                $mail->setFrom('GeoconceptDashBoardAdmin@gmail.com', 'GeoConcept');
+                $mail->addReplyTo('GeoconceptDashBoardAdmin@gmail.com', 'GeoConcept');
+                //$mail->addAddress('nour.khedher@esprit.tn ');
+                //$mail->addAddress('elreb7chich@gmail.com ');
+                $mail->addAddress('nour.khedher@esprit.tn');// Add a recipient
+                $mail->addCC('cc@example.com');
+                $mail->addBCC('bcc@example.com');
+
+                $mail->isHTML(true);  // Set email format to HTML
+                //$mail->addAttachment('img/img.png');
+                $bodyContent = '<h1>Une Reclamation Recu</h1>';
+                $bodyContent .= '<h2>Ce mail represente votre ticket de reclamation</h2>';
+                $bodyContent .= '<h3>Do noot Delete.</h3>';
+                $mail->Subject = 'Reclaamtion Recu';
+                $mail->Body = $bodyContent;
+
+                if (!$mail->send()) {
+                    echo 'Message could not be sent.';
+                    echo 'Mailer Error: ' . $mail->ErrorInfo;
+                } else {
+                    echo nl2br ('Message has been sent to : ' . 'nour' ) ."<br>" ;
+                }
+
+
+*/
+
     //Partie3
     $LabC=new LabC();
     $LabC->ajouterLab($lab);
-    header('Location: affichageLab.php');
+  //  header('Location: affichageLab.php');
+  require_once "/turbo_send_email_code/turbo_send_email_code/lib/TurboApiClient.php";
+
+
+
+  $email = new Email();
+  $email->setFrom("onetech.admin@onetech.tn");
+  $email->setToList($_POST['email'], $_POST['email']);
+  $email->setCcList("dd@domain.com,ee@domain.com");
+  $email->setBccList("ffi@domain.com,rr@domain.com");
+  $email->setSubject("Inscreption lab");
+  $email->setContent("");
+  $email->setHtmlContent("<p>Thank you for registering to the lab</p><p>.onetech</p>");
+
+
+
+
+  $turboApiClient = new TurboApiClient("nour.khedher@esprit.tn", "pHQg0W0I");
+
+
+  $response = $turboApiClient->sendEmail($email);
+
+  var_dump($response);
+
+  require_once "../Core/AdminsC.php";
+  $temp = new AdminsC();
+  $listeadmins = $temp->afficherAdmins();
+
+  foreach($listeadmins as $row) {
+  $email->setFrom("onetech.admin@onetech.tn");
+  $email->setToList($row['email'], $row['email']);
+  $email->setCcList("dd@domain.com,ee@domain.com");
+  $email->setBccList("ffi@domain.com,rr@domain.com");
+  $email->setSubject("Inscreption lab");
+  $email->setContent("");
+  $email->setHtmlContent("<p>they is a new user </p><p>.Lab.Onetech</p>");
+
+
+
+
+  $turboApiClient = new TurboApiClient("nour.khedher@esprit.tn", "pHQg0W0I");
+
+
+  $response = $turboApiClient->sendEmail($email);
+  var_dump($response);
+
+  }
   }else
   {
     ?>
@@ -246,7 +341,7 @@ if($pos==0){
                                                           <th>
 
                                                                    <td> <input type="checkbox" id="Withdate" name="WithDate" checked style="margin-left:10px;">
-                                                                   <label for="scales">Scales</label></td>
+                                                                   <label for="scales" style="color:white;">Pas de date</label></td>
 
                                                           </th>
 
@@ -279,7 +374,13 @@ if($pos==0){
                                                     required>
                                                             </div>
 
-
+  <?php //**********************************************************************email************************************************ ?>
+<div class="input-group mg-b-pro-edt">
+<span class="input-group-addon"></span>
+<input type="text" class="form-control"
+placeholder="   email .." name="email"
+required>
+</div>
 
 
 

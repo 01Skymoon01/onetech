@@ -12,7 +12,7 @@ $listeAdmins=$admin1C->afficherAdmins();
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Liste Admins| Geoconcept</title>
+    <title>Liste Admins| OneTech</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon

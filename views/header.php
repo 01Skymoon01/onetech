@@ -42,7 +42,7 @@ $var =  $_SESSION["role"];
             <nav class="sidebar-nav left-sidebar-menu-pro">
                 <ul class="metismenu" id="menu1">
                     <?php if ($var=="admin") : ?>
-                    <li >
+                    <li>
                         <a class="has-arrow" href="admins-edit.php">
                             <i class="icon nalika-paper-plane icon-wrap"></i>
                             <span class="mini-click-non">Admins</span>
@@ -61,9 +61,9 @@ $var =  $_SESSION["role"];
                             <a class="has-arrow"  aria-expanded="false" ><i class="icon nalika-table icon-wrap"></i> <span
                                         class="mini-click-non">Laboratoire</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Liste Produits" href="affichageLab.php"><span class="mini-sub-pro">Liste</span></a>
+                                <li><a title="Liste Produits" href="affichageLab.php"><span class="mini-sub-pro">Liste des utilisateurs</span></a>
                                 </li>
-                                <li><a title="Liste Produits" href="AjouterLab.php"><span class="mini-sub-pro">Ajouter</span></a>
+                                <li><a title="Liste Produits" href="AjouterLab.php"><span class="mini-sub-pro">Ajouter un utilisateur</span></a>
                                 </li>
                               </ul>
                             </li>
